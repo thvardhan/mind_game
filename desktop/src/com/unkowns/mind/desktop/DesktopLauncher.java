@@ -10,6 +10,7 @@ public class DesktopLauncher {
         config.title = "Mind game by the team unkowns";
         config.height = 768;
         config.width = 1366;
+        config.fullscreen = true;
 		new LwjglApplication(new MindGame(), config);
 	}
 }
