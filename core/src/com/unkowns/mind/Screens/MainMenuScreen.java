@@ -81,7 +81,7 @@ public class MainMenuScreen implements Screen {
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && me.getSelector() == 1) {
-            game.setScreen(new LogoScreen(game));
+            game.setScreen(new MainGameScreen(game));
             dispose();
         }
 
