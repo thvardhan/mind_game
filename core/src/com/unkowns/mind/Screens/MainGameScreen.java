@@ -5,17 +5,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.unkowns.mind.MindGame;
-import com.unkowns.mind.entity.PopupEntity;
 
 public class MainGameScreen implements Screen {
 
-    private static PopupEntity badlogic;
+    //    private static PopupEntity badlogic;
     final MindGame game;
+    private Texture bg;
 
 
     public MainGameScreen(final MindGame game) {
         this.game = game;
-        badlogic = new PopupEntity(new Texture("badlogic.jpg"), 500);
+        this.game.font.getData().setScale(80);
+//        badlogic = new PopupEntity(new Texture("badlogic.jpg"), 500);
+        bg = new Texture("bg_main.png");
     }
 
     @Override
@@ -30,9 +32,10 @@ public class MainGameScreen implements Screen {
 
 
         game.batch.begin();
-        game.batch.draw(badlogic.getTexture(), 200, 200, badlogic.getX(), badlogic.getY());
+        game.batch.draw(bg, 0, 0);
+        game.font.draw(game.batch, "Hello this is mind game", 60, 60, 1000, 500, true);
         game.batch.end();
-        badlogic.animate(delta);
+//        badlogic.animate(delta);
 
     }
 
@@ -58,6 +61,6 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void dispose() {
-        badlogic.dispose();
+        bg.dispose();
     }
 }

@@ -12,8 +12,8 @@ public class MainMenuEntity implements Disposable {
     private int selector;
 
     private MainMenuEntity() {
-        mainMenu = new Texture("main_menu.png");
-        star = new Texture("star64.png");
+        mainMenu = new Texture("main_menu_no_stroke.png");
+        star = new Texture("star64_fix.png");
         selector = 1;
         angle = 0;
     }

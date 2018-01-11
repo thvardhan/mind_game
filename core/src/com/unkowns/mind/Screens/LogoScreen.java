@@ -1,6 +1,7 @@
 package com.unkowns.mind.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -24,6 +25,7 @@ public class LogoScreen implements Screen {
         rect.set(0, 0, 1366, 768);
         alpha = 1;
         trigger = false;
+//        game.camera.setToOrtho(false,1366,768);
     }
 
     @Override
@@ -33,8 +35,6 @@ public class LogoScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
         game.batch.draw(logo, Gdx.graphics.getWidth() / 2 - logo.getWidth() / 2,
@@ -49,7 +49,6 @@ public class LogoScreen implements Screen {
         game.shape.setColor(new Color(1, 1, 1, alpha));
         game.shape.rect(0, 0, 1366, 768);
         game.shape.end();
-
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
         if (alpha <= -1 || trigger) {
@@ -60,6 +59,11 @@ public class LogoScreen implements Screen {
             game.setScreen(new MainMenuScreen(game));
             dispose();
         }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !trigger)
+            alpha = -1;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && trigger)
+            alpha = 5;
     }
 
     @Override

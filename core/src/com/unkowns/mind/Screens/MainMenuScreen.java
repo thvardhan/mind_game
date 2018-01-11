@@ -3,22 +3,20 @@ package com.unkowns.mind.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.unkowns.mind.MindGame;
 import com.unkowns.mind.entity.MainMenuEntity;
 
 public class MainMenuScreen implements Screen {
 
     final MindGame game;
-    OrthographicCamera camera;
+    //    OrthographicCamera camera;
     private MainMenuEntity me;
 
     public MainMenuScreen(final MindGame game) {
         this.game = game;
         me = MainMenuEntity.getInstance();
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1366, 768);
+//        camera = new OrthographicCamera();
+//        camera.setToOrtho(false, 1366, 768);
 
     }
 
@@ -30,14 +28,10 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-//      Clears the screen
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//      Updates the camera
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
 
-//      Begins the batch and collects the orders
+        game.display(game);
+
+        //      Begins the batch and collects the orders
         game.batch.begin();
 //      Draws the main screen
         game.batch.draw(me.getMainMenu(), 0, 0, 1366, 768);
