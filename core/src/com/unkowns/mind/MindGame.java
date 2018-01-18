@@ -38,13 +38,13 @@ public class MindGame extends Game {
 		shape.dispose();
 	}
 
-	public void display(MindGame game) {
+	public void display() {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-		game.camera.update();
-		game.batch.setProjectionMatrix(game.camera.combined);
+		this.camera.update();
+		this.batch.setProjectionMatrix(this.camera.combined);
 
 	}
 

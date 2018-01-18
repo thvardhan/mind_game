@@ -25,7 +25,6 @@ public class LogoScreen implements Screen {
         rect.set(0, 0, 1366, 768);
         alpha = 1;
         trigger = false;
-//        game.camera.setToOrtho(false,1366,768);
     }
 
     @Override
@@ -36,9 +35,11 @@ public class LogoScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        game.display();
+
         game.batch.begin();
-        game.batch.draw(logo, Gdx.graphics.getWidth() / 2 - logo.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - logo.getHeight() / 2, 500, 500);
+        game.batch.draw(logo, game.camera.position.x - (logo.getWidth() / 2),
+                game.camera.position.y - (logo.getWidth() / 2));
         game.batch.end();
 
 
@@ -47,7 +48,7 @@ public class LogoScreen implements Screen {
 
         game.shape.begin(ShapeRenderer.ShapeType.Filled);
         game.shape.setColor(new Color(1, 1, 1, alpha));
-        game.shape.rect(0, 0, 1366, 768);
+        game.shape.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.shape.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
