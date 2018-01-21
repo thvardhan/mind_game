@@ -8,13 +8,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.unkowns.mind.Screens.LogoScreen;
+import com.unkowns.mind.Screens.MainGameScreen;
 
 public class MindGame extends Game {
 	public SpriteBatch batch;
 	public BitmapFont font;
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
-
+    public static final boolean DEBUG = true;
 
 	@Override
 	public void create () {
@@ -23,7 +24,10 @@ public class MindGame extends Game {
 		shape = new ShapeRenderer();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1366, 768);
-		this.setScreen(new LogoScreen(this));
+        if (!MindGame.DEBUG)
+            this.setScreen(new LogoScreen(this));
+        else
+            this.setScreen(new MainGameScreen(this));
 	}
 
 	@Override
