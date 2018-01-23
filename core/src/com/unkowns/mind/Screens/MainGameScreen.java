@@ -16,11 +16,7 @@ import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
 
-    //    private static PopupEntity badlogic;
     final MindGame game;
-    private final String whiteFile = "white.png";
-    private final String blackFile = "black.png";
-    private final String questionFile = "rectangleAlpha.png";
     private Texture white;
     private Texture black;
     private Texture question;
@@ -42,21 +38,29 @@ public class MainGameScreen implements Screen {
         this.game = game;
 
 //      Texture init
-        white = new Texture(whiteFile);
-        black = new Texture(blackFile);
-        question = new Texture(questionFile);
+        white = game.assetManager.get("texture/white.png");
+        black = game.assetManager.get("texture/black.png");
+        question = game.assetManager.get("texture/rectangleAlpha.png");
+
+
 //      Polygon creation for bounds
         whitePolygon = new Polygon(new float[]{0, 0, Gdx.graphics.getWidth(), 0, 0, Gdx.graphics.getHeight()});
         mouse = new Rectangle(0, 0, 1, 1);
         blackPolygon = new Polygon(new float[]{Gdx.graphics.getWidth(), 0, 0, Gdx.graphics.getHeight(),
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight()});
+
+
 //      bool checkers
         whiteCol = false;
         blackCol = false;
+
+
 //      Misc initializer
         questions = new ArrayList<Question>();
-        try {
+        questionIndex = 0;
 
+        try {
+            // FIXME: 1/23/18 fix AssetMangaer here
             QuestionParser parser = new QuestionParser(Gdx.files.internal("data/questions.txt").file());
             if (parser.initArray(questions)) {
                 System.out.println("[OK] Parsing questions from questions.txt");
@@ -67,7 +71,7 @@ public class MainGameScreen implements Screen {
             e.printStackTrace();
         }
 
-        questionIndex = 0;
+
         game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         game.font.getData().setScale(2);
         glyphLayout = new GlyphLayout();
@@ -86,7 +90,6 @@ public class MainGameScreen implements Screen {
         game.batch.begin();
         game.batch.draw(white, 0, 0);
         game.batch.draw(black, 0, 0);
-//        System.out.println("question = " + (game.camera.position.x*2-(game.camera.position.x*2/27.32f)));
         game.batch.draw(question, this.game.camera.position.x * 2 / 27.32F,
                 (game.camera.position.y - game.camera.position.y / 3.186f) + game.camera.position.y / 6.372f,
                 game.camera.position.x * 2 - (game.camera.position.x * 2 / 27.32f) * 2,
@@ -135,9 +138,6 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void dispose() {
-        white.dispose();
-        black.dispose();
-        question.dispose();
 
     }
 
@@ -163,6 +163,7 @@ public class MainGameScreen implements Screen {
     }
 
     private void renderQuestionFont(float delta, Question question) {
+        glyphLayout.setText(game.font, question.getQuestion());
         this.game.font.draw(game.batch, question.getQuestion(), this.game.camera.position.x - glyphLayout.width / 2,
                 this.game.camera.position.y + glyphLayout.height / 2);
     }

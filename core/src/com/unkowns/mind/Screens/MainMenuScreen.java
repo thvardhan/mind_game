@@ -10,14 +10,11 @@ public class MainMenuScreen implements Screen {
 
     final MindGame game;
     int x, y;
-    //    OrthographicCamera camera;
     private MainMenuEntity me;
 
     public MainMenuScreen(MindGame game) {
         this.game = game;
-        me = MainMenuEntity.getInstance();
-//        camera = new OrthographicCamera();
-//        camera.setToOrtho(false, 1366, 768);
+        me = new MainMenuEntity(game);
     }
 
 
@@ -31,8 +28,7 @@ public class MainMenuScreen implements Screen {
 
         game.display();
 
-
-        //      Begins the batch and collects the orders
+//      Begins the batch and collects the orders
         game.batch.begin();
 //      Draws the main screen
         game.batch.draw(me.getMainMenu(), 0, 0, game.camera.position.x * 2, game.camera.position.y * 2);
@@ -119,7 +115,6 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-//        mainMenu.dispose();
         me.dispose();
     }
 

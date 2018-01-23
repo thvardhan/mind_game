@@ -20,7 +20,7 @@ public class LogoScreen implements Screen {
 
     public LogoScreen(MindGame game) {
         this.game = game;
-        this.logo = new Texture("team_unknowns.png");
+        this.logo = game.assetManager.get("texture/team_unknowns.png");
         this.rect = new Rectangle();
         rect.set(0, 0, 1366, 768);
         alpha = 1;
@@ -89,6 +89,6 @@ public class LogoScreen implements Screen {
 
     @Override
     public void dispose() {
-        logo.dispose();
+
     }
 }

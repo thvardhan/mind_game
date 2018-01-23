@@ -2,24 +2,20 @@ package com.unkowns.mind.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
+import com.unkowns.mind.MindGame;
 
 public class MainMenuEntity implements Disposable {
 
-    private static MainMenuEntity instance = new MainMenuEntity();
     private Texture mainMenu;
     private Texture star;
     private float angle;
     private int selector;
 
-    private MainMenuEntity() {
-        mainMenu = new Texture("main_menu_no_stroke.png");
-        star = new Texture("star64_fix.png");
+    public MainMenuEntity(MindGame game) {
+        mainMenu = game.assetManager.get("texture/main_menu_no_stroke.png");
+        star = game.assetManager.get("texture/star64_fix.png");
         selector = 1;
         angle = 0;
-    }
-
-    public static MainMenuEntity getInstance() {
-        return instance;
     }
 
     @Override
