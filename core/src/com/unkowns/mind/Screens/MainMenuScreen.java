@@ -13,7 +13,7 @@ public class MainMenuScreen implements Screen {
     //    OrthographicCamera camera;
     private MainMenuEntity me;
 
-    public MainMenuScreen(final MindGame game) {
+    public MainMenuScreen(MindGame game) {
         this.game = game;
         me = MainMenuEntity.getInstance();
 //        camera = new OrthographicCamera();

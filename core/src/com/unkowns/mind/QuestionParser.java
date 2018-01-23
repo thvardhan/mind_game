@@ -1,5 +1,7 @@
 package com.unkowns.mind;
 
+import com.unkowns.mind.exceptions.QuestionFormatException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,14 +17,14 @@ public class QuestionParser {
         this.reader=new BufferedReader(new FileReader(file));
     }
 
-    public Question getQuestion()throws IOException{
+    public Question getQuestion() throws IOException, QuestionFormatException {
         String qt = reader.readLine();
         if (qt == null)
             return null;
 
         String[] r = qt.split(":");
         if (r.length != 3)
-            return null;
+            throw new QuestionFormatException("Check your questions.txt?");
 
         return new Question(r[0], r[1], r[2]);
     }

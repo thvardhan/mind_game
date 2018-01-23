@@ -37,6 +37,7 @@ public class MainGameScreen implements Screen {
     private GlyphLayout glyphLayout;
 
     public MainGameScreen(final MindGame game) {
+        System.out.println("[INFO] Initializing MainGameScreen");
         this.game = game;
 
 //      Texture init
@@ -64,10 +65,13 @@ public class MainGameScreen implements Screen {
             System.out.println("Gdx.files.classpath(\"questions.txt\") = " + Gdx.files.classpath("questions.txt"));
             e.printStackTrace();
         }
+
         questionIndex = 0;
         game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         game.font.getData().setScale(2);
-        glyphLayout = new GlyphLayout(game.font, questions.get(0).getQuestion());
+        System.out.println("questions.get(0).getQuestion() = " + questions.get(0));
+        if (questions.get(0) != null)
+            glyphLayout = new GlyphLayout(game.font, questions.get(0).getQuestion());
     }
 
     @Override
@@ -138,6 +142,7 @@ public class MainGameScreen implements Screen {
         white.dispose();
         black.dispose();
         question.dispose();
+
     }
 
     private boolean isCollision(Polygon p, Rectangle r) {
