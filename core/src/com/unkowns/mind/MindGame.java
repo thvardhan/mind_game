@@ -19,6 +19,7 @@ public class MindGame extends Game {
 
 	@Override
 	public void create () {
+        System.out.println("[INFO] DEBUG setting is set to " + DEBUG);
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		shape = new ShapeRenderer();
