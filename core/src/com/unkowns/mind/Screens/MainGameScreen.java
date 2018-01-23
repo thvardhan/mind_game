@@ -36,6 +36,7 @@ public class MainGameScreen implements Screen {
     private int questionIndex;
     private GlyphLayout glyphLayout;
 
+
     public MainGameScreen(final MindGame game) {
         System.out.println("[INFO] Initializing MainGameScreen");
         this.game = game;
@@ -69,9 +70,7 @@ public class MainGameScreen implements Screen {
         questionIndex = 0;
         game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         game.font.getData().setScale(2);
-        System.out.println("questions.get(0).getQuestion() = " + questions.get(0));
-        if (questions.get(0) != null)
-            glyphLayout = new GlyphLayout(game.font, questions.get(0).getQuestion());
+        glyphLayout = new GlyphLayout();
     }
 
     @Override
@@ -95,9 +94,6 @@ public class MainGameScreen implements Screen {
         if (READY)
             startGame(delta);
         game.batch.end();
-
-
-//        if(whiteCol)
 
 
         if (blackCol && Gdx.input.justTouched()) {
