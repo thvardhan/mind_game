@@ -8,15 +8,17 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
-public class TextLoader extends AsynchronousAssetLoader<Text, TextLoader.TextParameter> {
+//import com.unkowns.mind.managers.Text;
 
-    private Text text;
+public class TextLoader extends AsynchronousAssetLoader<Text, TextLoader.TextParameter> {
 
     public TextLoader(FileHandleResolver resolver) {
 
         super(resolver);
 
     }
+
+    Text text;
 
     @Override
     public void loadAsync(AssetManager manager, String fileName, FileHandle file, TextParameter parameter) {

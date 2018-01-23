@@ -1,5 +1,4 @@
 package com.unkowns.mind.managers;
-
 import com.badlogic.gdx.files.FileHandle;
 
 public class Text {
@@ -36,15 +35,15 @@ public class Text {
 
     }
 
-    public String getString() {
-
-        return this.string;
-
-    }
-
     public void setString(String string) {
 
         this.string = string;
+
+    }
+
+    public String getString() {
+
+        return this.string;
 
     }
 
