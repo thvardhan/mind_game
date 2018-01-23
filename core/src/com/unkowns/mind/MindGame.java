@@ -22,7 +22,7 @@ public class MindGame extends Game {
 	public BitmapFont font;
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public AssetManager assetManager;
 
 	@Override
@@ -36,8 +36,8 @@ public class MindGame extends Game {
         camera.setToOrtho(false, 1366, 768);
 
 
+        assetManager.setLoader(Text.class, new TextLoader(new InternalFileHandleResolver()));
         loadAssets();
-        System.out.println("assetManager = " + assetManager.get("data/questions.txt", Text.class).getString());
 
         if (!MindGame.DEBUG)
             this.setScreen(new LogoScreen(this));
@@ -53,13 +53,6 @@ public class MindGame extends Game {
             assetManager.load("texture/white.png", Texture.class);
             assetManager.load("texture/black.png", Texture.class);
             assetManager.load("texture/rectangleAlpha.png", Texture.class);
-//            assetManager.load("data/questions.txt", Texture.class);
-            assetManager.setLoader(
-                    Text.class,
-                    new TextLoader(
-                            new InternalFileHandleResolver()
-                    )
-            );
             assetManager.load(new AssetDescriptor<Text>("data/questions.txt", Text.class, new TextLoader.TextParameter()));
 
             assetManager.finishLoading();

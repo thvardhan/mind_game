@@ -2,23 +2,21 @@ package com.unkowns.mind;
 
 import com.unkowns.mind.exceptions.QuestionFormatException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class QuestionParser {
-    private final File file;
-    private BufferedReader reader;
+    private String[] questions;
+    private int line;
 
-    public QuestionParser(File file)throws IOException{
-        this.file=file;
-        this.reader=new BufferedReader(new FileReader(file));
+    public QuestionParser(String questions) {
+        line = 0;
+        this.questions = questions.split("\\r?\\n");
     }
 
-    public Question getQuestion() throws IOException, QuestionFormatException {
-        String qt = reader.readLine();
+    public Question getQuestion() throws QuestionFormatException {
+
+        String qt = questions[line++];
+
         if (qt == null)
             return null;
 
@@ -30,17 +28,14 @@ public class QuestionParser {
     }
 
     public boolean initArray(ArrayList<Question> list) {
-        try {
-            Question q = this.getQuestion();
-            do {
-                list.add(q);
-                q = this.getQuestion();
-            } while (q != null);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Unable to initialize array due to");
-            e.printStackTrace();
-            return false;
+        for (int i = 0; i < questions.length; i++) {
+            try {
+                list.add(getQuestion());
+            } catch (QuestionFormatException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
+        return true;
     }
 }

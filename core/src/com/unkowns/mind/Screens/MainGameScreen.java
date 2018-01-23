@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.unkowns.mind.MindGame;
 import com.unkowns.mind.Question;
 import com.unkowns.mind.QuestionParser;
+import com.unkowns.mind.managers.Text;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainGameScreen implements Screen {
@@ -59,16 +59,10 @@ public class MainGameScreen implements Screen {
         questions = new ArrayList<Question>();
         questionIndex = 0;
 
-        try {
-            // FIXME: 1/23/18 fix AssetMangaer here
-            QuestionParser parser = new QuestionParser(Gdx.files.internal("data/questions.txt").file());
-            if (parser.initArray(questions)) {
+        QuestionParser parser = new QuestionParser(game.assetManager.get("data/questions.txt", Text.class).getString());
+        if (parser.initArray(questions)) {
                 System.out.println("[OK] Parsing questions from questions.txt");
                 System.out.println("[INFO] Questions.size() = " + questions.size());
-            }
-        } catch (IOException e) {
-            System.out.println("Gdx.files.classpath(\"questions.txt\") = " + Gdx.files.classpath("questions.txt"));
-            e.printStackTrace();
         }
 
 
