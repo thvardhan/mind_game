@@ -28,8 +28,9 @@ public class MindGame extends Game {
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
     public static final boolean DEBUG = true;
+
     public AssetManager assetManager;
-    public FreetypeFontLoader.FreeTypeFontLoaderParameter fontSystem;
+    private FreetypeFontLoader.FreeTypeFontLoaderParameter fontSystem;
 
 	@Override
 	public void create () {
@@ -44,10 +45,9 @@ public class MindGame extends Game {
 
         fontSystem = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         fontSystem.fontFileName = "font/system.ttf";
-        fontSystem.fontParameters.size = 80;
-        fontSystem.fontParameters.shadowColor = Color.BLACK;
-        fontSystem.fontParameters.borderColor = Color.WHITE;
-        fontSystem.fontParameters.borderWidth = 3;
+        fontSystem.fontParameters.size = 37;
+        fontSystem.fontParameters.borderColor = Color.BLACK;
+        fontSystem.fontParameters.borderWidth = 2;
 
         FileHandleResolver resolver = new InternalFileHandleResolver();
         assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
@@ -58,8 +58,8 @@ public class MindGame extends Game {
 
 
         font = assetManager.get("font/system.ttf");
-        font.setColor(Color.GRAY.premultiplyAlpha());
-        font.getData().setScale(0.5f);
+//        font.setColor(Color.GRAY.premultiplyAlpha());
+//        font.getData().setScale(0.5f);
         if (!MindGame.DEBUG)
             this.setScreen(new LogoScreen(this));
         else
@@ -74,7 +74,7 @@ public class MindGame extends Game {
             assetManager.load("texture/white.png", Texture.class);
             assetManager.load("texture/black.png", Texture.class);
             assetManager.load("texture/rectangleAlpha.png", Texture.class);
-//            assetManager.load("font/system.ttf",True);
+            assetManager.load("texture/final.png", Texture.class);
             assetManager.load(new AssetDescriptor<Text>("data/questions.txt", Text.class, new TextLoader.TextParameter()));
 
             assetManager.finishLoading();

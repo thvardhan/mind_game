@@ -5,11 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.unkowns.mind.MindGame;
 
-public class OptionScreen implements Screen {
+public class DataScreen implements Screen {
 
     final MindGame game;
 
-    public OptionScreen(MindGame game) {
+    public DataScreen(MindGame game) {
         this.game = game;
     }
 

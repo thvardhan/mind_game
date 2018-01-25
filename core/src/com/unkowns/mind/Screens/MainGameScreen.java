@@ -20,6 +20,7 @@ public class MainGameScreen implements Screen {
     private Texture white;
     private Texture black;
     private Texture question;
+    private Texture transition;
 
     private Polygon whitePolygon;
     private Rectangle mouse;
@@ -31,6 +32,7 @@ public class MainGameScreen implements Screen {
     private ArrayList<Question> questions;
     private int questionIndex;
     private GlyphLayout glyphLayout;
+    private int animateFactor;
 
 
     public MainGameScreen(final MindGame game) {
@@ -41,7 +43,7 @@ public class MainGameScreen implements Screen {
         white = game.assetManager.get("texture/white.png");
         black = game.assetManager.get("texture/black.png");
         question = game.assetManager.get("texture/rectangleAlpha.png");
-
+        transition = game.assetManager.get("texture/final.png");
 
 //      Polygon creation for bounds
         whitePolygon = new Polygon(new float[]{0, 0, Gdx.graphics.getWidth(), 0, 0, Gdx.graphics.getHeight()});
@@ -66,6 +68,7 @@ public class MainGameScreen implements Screen {
         }
 
         glyphLayout = new GlyphLayout();
+        animateFactor = -Gdx.graphics.getWidth();
     }
 
     @Override
@@ -134,16 +137,25 @@ public class MainGameScreen implements Screen {
 
     private void startGame(float delta) {
         if (questionIndex >= questions.size()) {
-            //TODO ending mining sccreen here
             questionIndex = 0;
+            game.setScreen(new DataScreen(game));
+            dispose();
+        } else if (questions.get(questionIndex).isAnswered()) {
+            if (transition(delta)) {
+                questionIndex++;
+                animateFactor = -Gdx.graphics.getWidth();
+            }
+        } else if (animateFactor == -Gdx.graphics.getWidth()) {
+            renderBlackChoice(delta, questions.get(questionIndex));
+            renderQuestionFont(delta, questions.get(questionIndex));
+            renderWhiteChoice(delta, questions.get(questionIndex));
         }
-        if (questions.get(questionIndex).isAnswered()) {
-            //TODO TRANSITION HERE
-            questionIndex++;
-        }
-        renderBlackChoice(delta, questions.get(questionIndex));
-        renderQuestionFont(delta, questions.get(questionIndex));
-        renderWhiteChoice(delta, questions.get(questionIndex));
+    }
+
+    private boolean transition(float delta) {
+        game.batch.draw(transition, animateFactor, 0);
+        animateFactor += 10 + Math.random() * 10 * delta;
+        return animateFactor >= Gdx.graphics.getWidth();
     }
 
     private boolean isCollision(Polygon p, Rectangle r) {
