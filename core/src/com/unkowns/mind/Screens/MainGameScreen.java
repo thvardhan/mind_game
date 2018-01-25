@@ -65,9 +65,6 @@ public class MainGameScreen implements Screen {
                 System.out.println("[INFO] Questions.size() = " + questions.size());
         }
 
-
-        game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        game.font.getData().setScale(2);
         glyphLayout = new GlyphLayout();
     }
 
@@ -135,6 +132,20 @@ public class MainGameScreen implements Screen {
 
     }
 
+    private void startGame(float delta) {
+        if (questionIndex >= questions.size()) {
+            //TODO ending mining sccreen here
+            questionIndex = 0;
+        }
+        if (questions.get(questionIndex).isAnswered()) {
+            //TODO TRANSITION HERE
+            questionIndex++;
+        }
+        renderBlackChoice(delta, questions.get(questionIndex));
+        renderQuestionFont(delta, questions.get(questionIndex));
+        renderWhiteChoice(delta, questions.get(questionIndex));
+    }
+
     private boolean isCollision(Polygon p, Rectangle r) {
         Polygon rPoly = new Polygon(new float[]{0, 0, r.width, 0, r.width,
                 r.height, 0, r.height});
@@ -143,23 +154,33 @@ public class MainGameScreen implements Screen {
     }
 
     private void triggerWhite(float delta) {
-        System.out.println("WHITE " + Gdx.input.getX());
+        questions.get(questionIndex).setAnswerID((short) 0);
+        questions.get(questionIndex).setAnswered(true);
     }
 
     private void triggerBlack(float delta) {
-        System.out.println("BLACK " + Gdx.input.getX());
-    }
-
-    private void startGame(float delta) {
-        if (questions.get(questionIndex).isAnswered())
-            questionIndex++;
-        renderQuestionFont(delta, questions.get(questionIndex));
+        questions.get(questionIndex).setAnswerID((short) 1);
+        questions.get(questionIndex).setAnswered(true);
     }
 
     private void renderQuestionFont(float delta, Question question) {
         glyphLayout.setText(game.font, question.getQuestion());
         this.game.font.draw(game.batch, question.getQuestion(), this.game.camera.position.x - glyphLayout.width / 2,
                 this.game.camera.position.y + glyphLayout.height / 2);
+    }
+
+    private void renderBlackChoice(float delta, Question question) {
+        glyphLayout.setText(game.font, question.getTwo());
+
+        this.game.font.draw(game.batch, question.getTwo(), (this.game.camera.position.x * 1.7f) - glyphLayout.width / 2,
+                ((this.game.camera.position.y * 1.7f) + glyphLayout.height / 2));
+    }
+
+    private void renderWhiteChoice(float delta, Question question) {
+        glyphLayout.setText(game.font, question.getOne());
+
+        this.game.font.draw(game.batch, question.getOne(), this.game.camera.position.x * 2 - (this.game.camera.position.x * 1.7f) - glyphLayout.width / 2,
+                this.game.camera.position.y * 2 - ((this.game.camera.position.y * 1.7f) + glyphLayout.height / 2));
     }
 
 }
