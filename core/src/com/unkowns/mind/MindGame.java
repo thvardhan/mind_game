@@ -27,7 +27,7 @@ public class MindGame extends Game {
 	public BitmapFont font;
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public AssetManager assetManager;
     private FreetypeFontLoader.FreeTypeFontLoaderParameter fontSystem;
@@ -40,8 +40,7 @@ public class MindGame extends Game {
 		shape = new ShapeRenderer();
 		camera = new OrthographicCamera();
         assetManager = new AssetManager();
-        camera.setToOrtho(false, 1366, 768);
-        //FIXME change camera resolution
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         fontSystem = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         fontSystem.fontFileName = "font/system.ttf";

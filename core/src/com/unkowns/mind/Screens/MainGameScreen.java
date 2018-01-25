@@ -154,7 +154,7 @@ public class MainGameScreen implements Screen {
 
     private boolean transition(float delta) {
         game.batch.draw(transition, animateFactor, 0);
-        animateFactor += 10 + Math.random() * 10 * delta;
+        animateFactor += 20 + Math.random() * 10 * delta;
         return animateFactor >= Gdx.graphics.getWidth();
     }
 
