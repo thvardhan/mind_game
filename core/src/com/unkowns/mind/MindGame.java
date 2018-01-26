@@ -6,18 +6,16 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.utils.ShortArray;
+import com.unkowns.mind.Screens.DataScreen;
 import com.unkowns.mind.Screens.LogoScreen;
-import com.unkowns.mind.Screens.MainGameScreen;
 import com.unkowns.mind.managers.Text;
 import com.unkowns.mind.managers.TextLoader;
 
@@ -27,18 +25,22 @@ public class MindGame extends Game {
 	public BitmapFont font;
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
+    public PolygonSprite poly;
+    public PolygonSpriteBatch polyBatch;
 
     public AssetManager assetManager;
     private FreetypeFontLoader.FreeTypeFontLoaderParameter fontSystem;
+    private Texture textureSolid;
 
 	@Override
 	public void create () {
         System.out.println("[INFO] DEBUG setting is set to " + DEBUG);
-		batch = new SpriteBatch();
-//		font = new BitmapFont();
-		shape = new ShapeRenderer();
-		camera = new OrthographicCamera();
+
+        batch = new SpriteBatch();
+//        poly=new PolygonSprite();
+        shape = new ShapeRenderer();
+        camera = new OrthographicCamera();
         assetManager = new AssetManager();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -56,14 +58,35 @@ public class MindGame extends Game {
         loadAssets();
 
 
+        polyBatch = new PolygonSpriteBatch();
+        polyBatch.setProjectionMatrix(camera.combined);
+
+        Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pix.setColor(Color.BLACK); // DE is red, AD is green and BE is blue.
+        pix.fill();
+        textureSolid = new Texture(pix);
+        TextureRegion textureRegion = new TextureRegion(textureSolid);
+
+        float[] vertices = new float[]{10, 10, 100, 10, 800, 800, 10, 100};
+
+        EarClippingTriangulator triangulator = new EarClippingTriangulator();
+        ShortArray triangleIndices = triangulator.computeTriangles(vertices);
+
+        PolygonRegion polyReg = new PolygonRegion(textureRegion, vertices, triangleIndices.toArray());
+
+        poly = new PolygonSprite(polyReg);
+
+
         font = assetManager.get("font/system.ttf");
-//        font.setColor(Color.GRAY.premultiplyAlpha());
-//        font.getData().setScale(0.5f);
-        if (!MindGame.DEBUG)
+
+        if (!MindGame.DEBUG) {
             this.setScreen(new LogoScreen(this));
-        else
-            this.setScreen(new MainGameScreen(this));
-	}
+        } else {
+            this.setScreen(new DataScreen(this));
+        }
+    }
+
+
 
     public boolean loadAssets() {
         try {
@@ -93,6 +116,7 @@ public class MindGame extends Game {
 	public void dispose () {
 		batch.dispose();
 		shape.dispose();
+        polyBatch.dispose();
         assetManager.clear();
         assetManager.dispose();
 	}

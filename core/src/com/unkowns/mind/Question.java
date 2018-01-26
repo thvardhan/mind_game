@@ -1,6 +1,9 @@
 package com.unkowns.mind;
 
 public class Question {
+    private Choice white;
+    private Choice black;
+
     private String one;
     private String two;
 
@@ -16,6 +19,12 @@ public class Question {
         this.question = question;
         answered = false;
         answerID = 0;
+    }
+
+    public Question(String question, String one, String two, Choice choiceWhite, Choice choiceBlack) {
+        this(question, one, two);
+        this.white = choiceWhite;
+        this.black = choiceBlack;
     }
 
     public short getAnswerID() {

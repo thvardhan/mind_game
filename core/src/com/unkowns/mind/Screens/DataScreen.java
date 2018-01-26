@@ -19,7 +19,9 @@ public class DataScreen implements Screen {
     @Override
     public void render(float delta) {
         game.display();
-
+        game.polyBatch.begin();
+        game.poly.draw(game.polyBatch);
+        game.polyBatch.end();
 
     }
 
