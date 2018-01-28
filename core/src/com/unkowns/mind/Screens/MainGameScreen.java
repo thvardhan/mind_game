@@ -28,7 +28,7 @@ public class MainGameScreen implements Screen {
     private Polygon blackPolygon;
 
     private static final boolean READY = true;
-    private static final boolean ANIMATE = true;
+    private static final boolean ANIMATE = false;
     private boolean whiteCol;
     private boolean blackCol;
     private ArrayList<Question> questions;
@@ -90,8 +90,8 @@ public class MainGameScreen implements Screen {
 
         mouse.setPosition(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
         game.batch.begin();
-        game.batch.draw(white, 0, 0);
-        game.batch.draw(black, 0, 0);
+        game.batch.draw(white, 0, 0, game.camera.position.x * 2, game.camera.position.y * 2);
+        game.batch.draw(black, 0, 0, game.camera.position.x * 2, game.camera.position.y * 2);
         game.batch.draw(question, this.game.camera.position.x * 2 / 27.32F,
                 (game.camera.position.y - game.camera.position.y / 3.186f) + game.camera.position.y / 6.372f,
                 game.camera.position.x * 2 - (game.camera.position.x * 2 / 27.32f) * 2,
@@ -161,7 +161,7 @@ public class MainGameScreen implements Screen {
     }
 
     private boolean transition(float delta) {
-        game.batch.draw(transition, animateFactor, 0);
+        game.batch.draw(transition, animateFactor, 0, game.camera.position.x * 2, game.camera.position.y * 2);
         if (ANIMATE)
             animateFactor += 80 + Math.random() * 10 * delta;
         else

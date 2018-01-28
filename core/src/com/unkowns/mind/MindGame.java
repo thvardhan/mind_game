@@ -18,10 +18,12 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.unkowns.mind.Screens.DataScreen;
 import com.unkowns.mind.Screens.LogoScreen;
-import com.unkowns.mind.Screens.MainGameScreen;
 import com.unkowns.mind.managers.Text;
 import com.unkowns.mind.managers.TextLoader;
+
+import java.util.ArrayList;
 
 
 public class MindGame extends Game {
@@ -31,6 +33,7 @@ public class MindGame extends Game {
 	public OrthographicCamera camera;
     public static final boolean DEBUG = true;
     public PolygonSprite poly;
+    public PolygonSprite bg;
     public PolygonSpriteBatch polyBatch;
 
     public AssetManager assetManager;
@@ -65,13 +68,13 @@ public class MindGame extends Game {
         polyBatch.setProjectionMatrix(camera.combined);
 
 
-
         font = assetManager.get("font/system.ttf");
+        font.getData().markupEnabled = true;
 
         if (!MindGame.DEBUG) {
             this.setScreen(new LogoScreen(this));
         } else {
-            this.setScreen(new MainGameScreen(this));
+            this.setScreen(new DataScreen(this, new ArrayList<Question>()));
         }
     }
 
@@ -87,6 +90,7 @@ public class MindGame extends Game {
             assetManager.load("texture/rectangleAlpha.png", Texture.class);
             assetManager.load("texture/final.png", Texture.class);
             assetManager.load(new AssetDescriptor<Text>("data/questions.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/INFJ.txt", Text.class, new TextLoader.TextParameter()));
 
             assetManager.finishLoading();
         } catch (Exception e) {
@@ -111,7 +115,7 @@ public class MindGame extends Game {
 	}
 
 	public void display() {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
