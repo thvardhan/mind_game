@@ -22,7 +22,7 @@ public class QuestionParser {
 
         String[] r = qt.split(":");
         if (r.length != 27)
-            throw new QuestionFormatException("Check your questions.txt?");
+            throw new QuestionFormatException("Check your questions.txt? at question " + (line));
 
         return new Question(r[0], r[1], r[2], new Choice(Integer.parseInt(r[3])
                 , Integer.parseInt(r[4]), Integer.parseInt(r[5]), Integer.parseInt(r[6]),

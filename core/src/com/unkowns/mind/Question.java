@@ -1,5 +1,7 @@
 package com.unkowns.mind;
 
+import java.util.ArrayList;
+
 public class Question {
     private Choice white;
     private Choice black;
@@ -25,6 +27,25 @@ public class Question {
         this(question, one, two);
         this.white = choiceWhite;
         this.black = choiceBlack;
+    }
+
+    public static Choice getChoice(ArrayList<Question> arr) {
+        Choice choice = new Choice(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        for (Question q : arr) {
+            choice.E += q.getChoice().E;
+            choice.I += q.getChoice().I;
+            choice.S += q.getChoice().S;
+            choice.N += q.getChoice().N;
+            choice.T += q.getChoice().T;
+            choice.F += q.getChoice().F;
+            choice.J += q.getChoice().J;
+            choice.P += q.getChoice().P;
+            choice.spiritual += q.getChoice().spiritual;
+            choice.academic += q.getChoice().academic;
+            choice.emotional += q.getChoice().emotional;
+            choice.intelligence += q.getChoice().intelligence;
+        }
+        return choice;
     }
 
     public short getAnswerID() {
@@ -53,6 +74,10 @@ public class Question {
 
     public String getTwo() {
         return two;
+    }
+
+    public Choice getChoice() {
+        return this.getAnswerID() == 1 ? white : this.getAnswerID() == 2 ? black : null;
     }
 }
 

@@ -14,4 +14,24 @@ public class Record {
         this.academic = academic;
         this.intelligence = intelligence;
     }
+
+    public String getPersona() {
+        return persona;
+    }
+
+    public int getEmotional() {
+        return emotional;
+    }
+
+    public int getSpiritual() {
+        return spiritual;
+    }
+
+    public int getAcademic() {
+        return academic;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
 }

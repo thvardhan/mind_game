@@ -13,6 +13,7 @@ import com.unkowns.mind.QuestionParser;
 import com.unkowns.mind.managers.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainGameScreen implements Screen {
 
@@ -27,6 +28,7 @@ public class MainGameScreen implements Screen {
     private Polygon blackPolygon;
 
     private static final boolean READY = true;
+    private static final boolean ANIMATE = true;
     private boolean whiteCol;
     private boolean blackCol;
     private ArrayList<Question> questions;
@@ -69,7 +71,13 @@ public class MainGameScreen implements Screen {
 
         glyphLayout = new GlyphLayout();
         animateFactor = -Gdx.graphics.getWidth();
+        Collections.shuffle(questions);
     }
+
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
 
     @Override
     public void show() {
@@ -138,7 +146,7 @@ public class MainGameScreen implements Screen {
     private void startGame(float delta) {
         if (questionIndex >= questions.size()) {
             questionIndex = 0;
-            game.setScreen(new DataScreen(game));
+            game.setScreen(new DataScreen(game, questions));
             dispose();
         } else if (questions.get(questionIndex).isAnswered()) {
             if (transition(delta)) {
@@ -154,7 +162,10 @@ public class MainGameScreen implements Screen {
 
     private boolean transition(float delta) {
         game.batch.draw(transition, animateFactor, 0);
-        animateFactor += 20 + Math.random() * 10 * delta;
+        if (ANIMATE)
+            animateFactor += 80 + Math.random() * 10 * delta;
+        else
+            animateFactor += 4000;
         return animateFactor >= Gdx.graphics.getWidth();
     }
 
@@ -166,12 +177,12 @@ public class MainGameScreen implements Screen {
     }
 
     private void triggerWhite(float delta) {
-        questions.get(questionIndex).setAnswerID((short) 0);
+        questions.get(questionIndex).setAnswerID((short) 1);
         questions.get(questionIndex).setAnswered(true);
     }
 
     private void triggerBlack(float delta) {
-        questions.get(questionIndex).setAnswerID((short) 1);
+        questions.get(questionIndex).setAnswerID((short) 2);
         questions.get(questionIndex).setAnswered(true);
     }
 

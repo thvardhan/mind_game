@@ -31,7 +31,7 @@ public class Choice {
     }
 
 
-    private String getPersona() {
+    public String getPersona() {
         String stlv = "";
         stlv += E >= I ? "E" : "I";
         stlv += S >= N ? "S" : "N";
@@ -40,4 +40,7 @@ public class Choice {
         return stlv;
     }
 
+    public String toString() {
+        return "[" + E + "," + I + "," + S + "," + N + "," + T + "," + F + "," + J + "," + P + "," + spiritual + "," + academic + "," + emotional + "," + intelligence + "]";
+    }
 }
