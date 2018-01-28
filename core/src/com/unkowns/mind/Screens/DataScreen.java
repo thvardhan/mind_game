@@ -119,7 +119,7 @@ public class DataScreen implements Screen {
             game.polyBatch.begin();
             game.bg.draw(game.polyBatch);
             game.poly.draw(game.polyBatch);
-//            game.polyBatch.setTransformMatrix(game.shape.getTransformMatrix());
+            game.polyBatch.setTransformMatrix(game.shape.getTransformMatrix());
             game.polyBatch.end();
         }
     }

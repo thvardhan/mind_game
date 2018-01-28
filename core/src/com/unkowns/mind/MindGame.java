@@ -31,7 +31,7 @@ public class MindGame extends Game {
 	public BitmapFont font;
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public PolygonSprite poly;
     public PolygonSprite bg;
     public PolygonSpriteBatch polyBatch;
@@ -90,7 +90,17 @@ public class MindGame extends Game {
             assetManager.load("texture/rectangleAlpha.png", Texture.class);
             assetManager.load("texture/final.png", Texture.class);
             assetManager.load(new AssetDescriptor<Text>("data/questions.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ENFJ.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ENTJ.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ENTP.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ESFJ.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ESTJ.txt", Text.class, new TextLoader.TextParameter()));
             assetManager.load(new AssetDescriptor<Text>("persona/INFJ.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/INFP.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/INTJ.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/INTP.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ISFP.txt", Text.class, new TextLoader.TextParameter()));
+            assetManager.load(new AssetDescriptor<Text>("persona/ISTP.txt", Text.class, new TextLoader.TextParameter()));
 
             assetManager.finishLoading();
         } catch (Exception e) {

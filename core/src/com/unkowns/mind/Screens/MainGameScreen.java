@@ -1,6 +1,7 @@
 package com.unkowns.mind.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -114,7 +115,10 @@ public class MainGameScreen implements Screen {
             blackCol = true;
         else if (isCollision(whitePolygon, mouse))
             whiteCol = true;
-
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new MainMenuScreen(game));
+            dispose();
+        }
 
     }
 
