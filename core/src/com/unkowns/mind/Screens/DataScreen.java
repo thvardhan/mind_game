@@ -128,11 +128,10 @@ public class DataScreen implements Screen {
         float x = game.camera.position.x;
         float y = game.camera.position.y;
         game.batch.begin();
-        game.font.draw(game.batch, new GlyphLayout(game.font, "Intelligence"), startX + startX * 40 / 100, startY);
-        game.font.draw(game.batch, new GlyphLayout(game.font, "Emotional"), startX, startY + startY * 55 / 100);
-        game.font.draw(game.batch, new GlyphLayout(game.font, "Spiritual"), startX - (startX * 57 / 100), startY);
-        game.font.draw(game.batch, new GlyphLayout(game.font, "Academic"), startX, startY - (startY * 48 / 100));
-
+        game.font.draw(game.batch, new GlyphLayout(game.font, "Intelligence (" + this.choice.intelligence * 100 / 200 + "%)"), startX + startX * 40 / 100, startY);
+        game.font.draw(game.batch, new GlyphLayout(game.font, "Emotional(" + this.choice.emotional * 100 / 200 + "%)"), startX, startY + startY * 55 / 100);
+        game.font.draw(game.batch, new GlyphLayout(game.font, "Spiritual(" + this.choice.spiritual * 100 / 200 + "%)"), startX - (startX * 70 / 100), startY);
+        game.font.draw(game.batch, new GlyphLayout(game.font, "Academic(" + this.choice.academic * 100 / 200 + "%)"), startX, startY - (startY * 48 / 100));
         game.font.draw(game.batch, game.assetManager.get("persona/" + choice.getPersona() + ".txt", Text.class).getString(),
                 0, game.camera.position.y * 2 - 30, game.camera.position.x * 2, 1, true);
         game.batch.end();
