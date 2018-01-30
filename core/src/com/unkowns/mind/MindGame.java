@@ -31,7 +31,7 @@ public class MindGame extends Game {
 	public BitmapFont font;
 	public ShapeRenderer shape;
 	public OrthographicCamera camera;
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public PolygonSprite poly;
     public PolygonSprite bg;
     public PolygonSpriteBatch polyBatch;

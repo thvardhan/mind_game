@@ -18,6 +18,9 @@ import com.unkowns.mind.MindGame;
 import com.unkowns.mind.Question;
 import com.unkowns.mind.managers.Text;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class DataScreen implements Screen {
@@ -29,6 +32,7 @@ public class DataScreen implements Screen {
     private Texture textureSolid1;
     private float startY;
     private float startX;
+    private int recordNumber;
 
     public DataScreen(MindGame game, ArrayList<Question> questions) {
         this.game = game;
@@ -69,6 +73,24 @@ public class DataScreen implements Screen {
         game.bg = new PolygonSprite(polyReg1);
         startY = game.camera.position.y;
         startX = game.camera.position.x;
+        try {
+            File folder = new File("Records");
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
+            File record = new File("Records/" + new File("Records/").listFiles().length + ".txt");
+            System.out.println("record = " + record.getAbsolutePath());
+            BufferedWriter writer = new BufferedWriter(new FileWriter(record));
+            for (Question q : questions) {
+                writer.write(q.getQuestion() + ":" + q.getAnswerID());
+                writer.newLine();
+            }
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("FAILED TO WRITE FILE");
+            e.printStackTrace();
+        }
     }
 
     @Override

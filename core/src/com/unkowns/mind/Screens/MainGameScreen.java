@@ -161,6 +161,7 @@ public class MainGameScreen implements Screen {
             renderBlackChoice(delta, questions.get(questionIndex));
             renderQuestionFont(delta, questions.get(questionIndex));
             renderWhiteChoice(delta, questions.get(questionIndex));
+            renderNumber();
         }
     }
 
@@ -194,6 +195,11 @@ public class MainGameScreen implements Screen {
         glyphLayout.setText(game.font, question.getQuestion());
         this.game.font.draw(game.batch, question.getQuestion(), this.game.camera.position.x - glyphLayout.width / 2,
                 this.game.camera.position.y + glyphLayout.height / 2);
+    }
+
+    private void renderNumber() {
+        glyphLayout.setText(game.font, this.questionIndex + " Out of " + this.getQuestions().size());
+        this.game.font.draw(game.batch, glyphLayout, 20, game.camera.position.y * 2 - 20);
     }
 
     private void renderBlackChoice(float delta, Question question) {
